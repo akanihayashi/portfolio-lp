@@ -1,0 +1,33 @@
+---
+interface Props {
+  label: string;
+  height: number;
+  radius?: number;
+  padding?: number;
+  dark?: boolean;
+  fontSize?: number;
+  labelPadding?: string;
+}
+
+const {
+  label,
+  height,
+  radius = 20,
+  padding = 16,
+  dark = false,
+  fontSize = 11.5,
+  labelPadding = '6px 10px',
+} = Astro.props;
+---
+
+<div
+  class:list={['placeholder', { 'placeholder--dark': dark }]}
+  style={`height:${height}px;border-radius:${radius}px;padding:${padding}px;`}
+>
+  <span
+    class="placeholder__label"
+    style={`font-size:${fontSize}px;padding:${labelPadding};`}
+  >
+    {label}
+  </span>
+</div>

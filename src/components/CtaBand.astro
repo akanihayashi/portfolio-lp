@@ -1,0 +1,47 @@
+---
+interface Props {
+  ctaLabel: string;
+  headingLines: string[];
+  body: string;
+}
+
+const { ctaLabel, headingLines, body } = Astro.props;
+---
+
+<section class="cta-band">
+  <h2 class="cta-band__heading">
+    {headingLines.map((line, i) => (
+      <>
+        {line}
+        {i < headingLines.length - 1 && <br />}
+      </>
+    ))}
+  </h2>
+  <p class="cta-band__body">{body}</p>
+  <a href="#contact" class="btn-inverse">{ctaLabel}</a>
+</section>
+
+<style>
+  .cta-band {
+    padding: 56px 28px;
+    background: var(--color-brand);
+    color: var(--color-base-bg);
+  }
+
+  .cta-band__heading {
+    margin: 0 0 18px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+
+  .cta-band__body {
+    margin: 0 0 30px;
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--color-on-brand);
+    text-wrap: pretty;
+  }
+</style>

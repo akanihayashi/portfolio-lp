@@ -1,0 +1,79 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Fact {
+  term: string;
+  detail: string;
+}
+
+interface Props {
+  body: string[];
+  facts: Fact[];
+}
+
+const { body, facts } = Astro.props;
+---
+
+<section id="about" class="about">
+  <p class="section-label">ABOUT</p>
+  <h2 class="section-heading">自己紹介</h2>
+
+  <div class="about__images">
+    <ImagePlaceholder label="プロフィール写真" height={190} radius={16} padding={10} dark fontSize={10} labelPadding="4px 7px" />
+    <ImagePlaceholder label="仕事道具・デスク" height={190} radius={16} padding={10} dark fontSize={10} labelPadding="4px 7px" />
+  </div>
+
+  {body.map((paragraph, i) => (
+    <p class="about__body" style={`margin-bottom:${i === body.length - 1 ? 32 : 20}px;`}>{paragraph}</p>
+  ))}
+
+  <dl class="about__facts">
+    {facts.map((fact) => (
+      <>
+        <dt>{fact.term}</dt>
+        <dd>{fact.detail}</dd>
+      </>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .about {
+    padding: 64px 28px;
+    background: var(--color-section-bg);
+  }
+
+  .about__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .about__body {
+    margin: 0;
+    font-size: 15px;
+    line-height: 2.15;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+
+  .about__facts {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 20px;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .about__facts dt {
+    margin: 0;
+    color: var(--color-text-caption);
+  }
+
+  .about__facts dd {
+    margin: 0;
+    color: var(--color-text-strong);
+  }
+</style>

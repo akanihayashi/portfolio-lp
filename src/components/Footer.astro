@@ -1,0 +1,45 @@
+---
+interface Props {
+  siteName: string;
+  contact: string;
+  copyright: string;
+}
+
+const { siteName, contact, copyright } = Astro.props;
+---
+
+<footer class="footer">
+  <p class="footer__site-name">{siteName}</p>
+  <p class="footer__contact">{contact}</p>
+  <p class="footer__copyright">{copyright}</p>
+</footer>
+
+<style>
+  .footer {
+    padding: 44px 28px 56px;
+    background: var(--color-section-bg);
+    text-align: center;
+  }
+
+  .footer__site-name {
+    margin: 0 0 14px;
+    font-family: var(--font-label);
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    color: var(--color-brand);
+  }
+
+  .footer__contact {
+    margin: 0 0 6px;
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--color-text-caption);
+  }
+
+  .footer__copyright {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-faint);
+  }
+</style>

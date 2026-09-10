@@ -1,0 +1,140 @@
+---
+interface Props {
+  ctaLabel: string;
+  intro: string;
+  consultOptions: string[];
+  noteDefault: string;
+  noteSent: string;
+}
+
+const { ctaLabel, intro, consultOptions, noteDefault, noteSent } = Astro.props;
+---
+
+<section id="contact" class="contact">
+  <p class="section-label">CONTACT</p>
+  <h2 class="section-heading" style="margin-bottom:20px;">お問合せ</h2>
+  <p class="contact__intro">{intro}</p>
+
+  <form class="contact__form" data-contact-form novalidate>
+    <label class="contact__field">
+      お名前
+      <input type="text" name="name" placeholder="山田 花子" required />
+    </label>
+    <label class="contact__field">
+      メールアドレス
+      <input type="email" name="email" placeholder="you@example.com" required />
+    </label>
+    <label class="contact__field">
+      相談したいこと
+      <select name="topic" required>
+        <option value="" disabled selected hidden>選択してください</option>
+        {consultOptions.map((option) => (
+          <option value={option}>{option}</option>
+        ))}
+      </select>
+    </label>
+    <label class="contact__field">
+      メッセージ
+      <textarea
+        name="message"
+        rows="5"
+        maxlength="2000"
+        placeholder="いま気になっていることを、そのままで大丈夫です。"
+        required
+      ></textarea>
+    </label>
+    <button type="submit" class="btn-primary">{ctaLabel}</button>
+    <p class="contact__note" data-contact-note data-note-default={noteDefault} data-note-sent={noteSent}>
+      {noteDefault}
+    </p>
+  </form>
+</section>
+
+<style>
+  .contact {
+    padding: 64px 28px;
+    background: var(--color-base-bg);
+  }
+
+  .contact__intro {
+    margin: 0 0 34px;
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-sub);
+  }
+
+  .contact__field input,
+  .contact__field select,
+  .contact__field textarea {
+    min-height: 54px;
+    padding: 0 16px;
+    border: 1.5px solid var(--color-input-border);
+    border-radius: 12px;
+    background: var(--color-input-bg);
+    font-size: 16px;
+    color: var(--color-text-strong);
+  }
+
+  .contact__field textarea {
+    padding: 14px 16px;
+    line-height: 1.9;
+    resize: vertical;
+  }
+
+  .contact__field input:focus-visible,
+  .contact__field select:focus-visible,
+  .contact__field textarea:focus-visible {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgba(168, 97, 63, 0.18);
+  }
+
+  .contact__note {
+    margin: 0;
+    text-align: center;
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--color-text-caption);
+  }
+</style>
+
+<script>
+  function initContactForm() {
+    const forms = document.querySelectorAll<HTMLFormElement>('[data-contact-form]');
+
+    forms.forEach((form) => {
+      const note = form.querySelector<HTMLElement>('[data-contact-note]');
+      if (!note) return;
+
+      const sentText = note.dataset.noteSent ?? '';
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+
+        // Prototype-only: no backend is wired up yet. Connect a real
+        // submission target (Pages Functions / Formspree / etc.) here.
+        note.textContent = sentText;
+        form.reset();
+      });
+    });
+  }
+
+  initContactForm();
+</script>

@@ -1,0 +1,122 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Work {
+  no: string;
+  title: string;
+  body: string;
+  tags: string;
+  imageNote: string;
+}
+
+interface Props {
+  works: Work[];
+  testimonial: { quote: string; attribution: string };
+}
+
+const { works, testimonial } = Astro.props;
+---
+
+<section class="works">
+  <p class="section-label">WORKS</p>
+  <h2 class="section-heading" style="margin-bottom:32px;">これまでの制作</h2>
+
+  <div class="works__list">
+    {works.map((w) => (
+      <div class="works__item">
+        <div class="works__main-image">
+          <ImagePlaceholder label={w.imageNote} height={300} padding={14} fontSize={11} labelPadding="5px 9px" />
+        </div>
+        <div class="works__details">
+          <ImagePlaceholder label="詳細カット 1" height={130} radius={12} padding={10} fontSize={10} labelPadding="4px 7px" />
+          <ImagePlaceholder label="詳細カット 2" height={130} radius={12} padding={10} fontSize={10} labelPadding="4px 7px" />
+        </div>
+        <p class="works__no">{w.no}</p>
+        <h3 class="works__title">{w.title}</h3>
+        <p class="works__body">{w.body}</p>
+        <p class="works__tags">{w.tags}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="works__testimonial">
+    <p class="works__quote">{testimonial.quote}</p>
+    <p class="works__attribution">{testimonial.attribution}</p>
+  </div>
+</section>
+
+<style>
+  .works {
+    padding: 64px 28px;
+    background: var(--color-base-bg);
+  }
+
+  .works__list {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    margin-bottom: 40px;
+  }
+
+  .works__main-image {
+    margin-bottom: 16px;
+  }
+
+  .works__details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .works__no {
+    margin: 0 0 8px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--color-brand);
+  }
+
+  .works__title {
+    margin: 0 0 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .works__body {
+    margin: 0 0 12px;
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+
+  .works__tags {
+    margin: 0;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-caption);
+  }
+
+  .works__testimonial {
+    padding: 26px 22px;
+    border-radius: 16px;
+    background: var(--color-section-bg);
+  }
+
+  .works__quote {
+    margin: 0 0 14px;
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+
+  .works__attribution {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--color-text-caption);
+  }
+</style>

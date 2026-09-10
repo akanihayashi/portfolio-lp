@@ -1,0 +1,76 @@
+---
+interface Social {
+  name: string;
+  note: string;
+  url: string;
+}
+
+interface Props {
+  socials: Social[];
+}
+
+const { socials } = Astro.props;
+---
+
+<section class="follow">
+  <p class="section-label follow__label">FOLLOW</p>
+  <p class="follow__intro">ふだんの発信はこちらから。</p>
+  <div class="follow__list">
+    {socials.map((sn) => (
+      <a href={sn.url} class="follow__link">
+        <span>{sn.name}</span>
+        <span class="follow__note">{sn.note}</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .follow {
+    padding: 56px 28px;
+    background: var(--color-section-bg);
+    text-align: center;
+  }
+
+  .follow__label {
+    margin-bottom: 22px;
+  }
+
+  .follow__intro {
+    margin: 0 0 26px;
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--color-text-body);
+  }
+
+  .follow__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .follow__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 0 24px;
+    border-radius: 999px;
+    background: var(--color-base-bg);
+    color: var(--color-text-strong);
+    font-size: 14.5px;
+    letter-spacing: 0.03em;
+    transition: background 0.15s ease;
+  }
+
+  .follow__link:hover,
+  .follow__link:active {
+    background: #FFFFFF;
+    color: var(--color-text-strong);
+  }
+
+  .follow__note {
+    font-size: 12.5px;
+    color: var(--color-text-caption);
+  }
+</style>

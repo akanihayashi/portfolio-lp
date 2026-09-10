@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Works from '../components/Works.astro';
+import Services from '../components/Services.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import Follow from '../components/Follow.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import content from '../data/content.json';
+---
+
+<Layout title={content.siteName}>
+  <div class="page">
+    <div class="column">
+      <Hero
+        siteName={content.siteName}
+        ctaLabel={content.ctaLabel}
+        lead={content.hero.lead}
+        headingLines={content.hero.headingLines}
+        body={content.hero.body}
+        replyNote={content.hero.replyNote}
+        imageNote={content.hero.imageNote}
+      />
+      <About body={content.about.body} facts={content.about.facts} />
+      <Works works={content.works} testimonial={content.testimonial} />
+      <Services services={content.services} />
+      <CtaBand
+        ctaLabel={content.ctaLabel}
+        headingLines={content.ctaBand.headingLines}
+        body={content.ctaBand.body}
+      />
+      <Faq faqs={content.faqs} />
+      <Follow socials={content.socials} />
+      <Contact
+        ctaLabel={content.ctaLabel}
+        intro={content.contact.intro}
+        consultOptions={content.contact.consultOptions}
+        noteDefault={content.contact.noteDefault}
+        noteSent={content.contact.noteSent}
+      />
+      <Footer
+        siteName={content.siteName}
+        contact={content.footer.contact}
+        copyright={content.footer.copyright}
+      />
+    </div>
+  </div>
+</Layout>

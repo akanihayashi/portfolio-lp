@@ -1,0 +1,144 @@
+---
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  faqs: FaqItem[];
+}
+
+const { faqs } = Astro.props;
+---
+
+<section class="faq">
+  <p class="section-label">FAQ</p>
+  <h2 class="section-heading">よくある質問</h2>
+
+  <div class="faq__list" data-faq-list>
+    {faqs.map((item, i) => (
+      <div class="faq__item" data-faq-item data-answer={item.a}>
+        <button
+          type="button"
+          class="faq__question"
+          aria-expanded={i === 0 ? 'true' : 'false'}
+          aria-controls={`faq-answer-${i}`}
+          data-faq-toggle
+        >
+          <span class="faq__q-mark">Q</span>
+          <span class="faq__q-text">{item.q}</span>
+          <span class="faq__sign" data-faq-sign>{i === 0 ? '−' : '＋'}</span>
+        </button>
+        {i === 0 && (
+          <p class="faq__answer" id={`faq-answer-${i}`} data-faq-answer>{item.a}</p>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: 64px 28px;
+    background: var(--color-base-bg);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq__item {
+    border-radius: 16px;
+    background: var(--color-section-bg);
+    overflow: hidden;
+  }
+
+  .faq__question {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .faq__q-mark {
+    font-family: var(--font-label);
+    font-size: 17px;
+    color: var(--color-brand);
+    line-height: 1.5;
+  }
+
+  .faq__q-text {
+    flex: 1;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--color-text-strong);
+  }
+
+  .faq__sign {
+    font-size: 16px;
+    color: var(--color-brand);
+    line-height: 1.6;
+  }
+
+  .faq__answer {
+    margin: 0;
+    padding: 0 22px 24px 50px;
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+</style>
+
+<script>
+  function initFaq() {
+    const lists = document.querySelectorAll<HTMLElement>('[data-faq-list]');
+
+    lists.forEach((list) => {
+      const items = Array.from(list.querySelectorAll<HTMLElement>('[data-faq-item]'));
+
+      items.forEach((item, index) => {
+        const toggle = item.querySelector<HTMLButtonElement>('[data-faq-toggle]');
+        if (!toggle) return;
+
+        toggle.addEventListener('click', () => {
+          const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+          const nextOpenIndex = isOpen ? -1 : index;
+
+          items.forEach((otherItem, otherIndex) => {
+            const otherToggle = otherItem.querySelector<HTMLButtonElement>('[data-faq-toggle]');
+            const otherSign = otherItem.querySelector<HTMLElement>('[data-faq-sign]');
+            const otherAnswer = otherItem.querySelector<HTMLElement>('[data-faq-answer]');
+            if (!otherToggle || !otherSign) return;
+
+            const shouldBeOpen = otherIndex === nextOpenIndex;
+            otherToggle.setAttribute('aria-expanded', shouldBeOpen ? 'true' : 'false');
+            otherSign.textContent = shouldBeOpen ? '−' : '＋';
+
+            if (shouldBeOpen && !otherAnswer) {
+              const answer = document.createElement('p');
+              answer.className = 'faq__answer';
+              answer.dataset.faqAnswer = '';
+              answer.id = `faq-answer-${otherIndex}`;
+              answer.textContent = otherItem.dataset.answer ?? '';
+              otherItem.appendChild(answer);
+            } else if (!shouldBeOpen && otherAnswer) {
+              otherAnswer.remove();
+            }
+          });
+        });
+      });
+    });
+  }
+
+  initFaq();
+</script>

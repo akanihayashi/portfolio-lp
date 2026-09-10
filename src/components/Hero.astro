@@ -1,0 +1,92 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Props {
+  siteName: string;
+  ctaLabel: string;
+  lead: string;
+  headingLines: string[];
+  body: string;
+  replyNote: string;
+  imageNote: string;
+}
+
+const { siteName, ctaLabel, lead, headingLines, body, replyNote, imageNote } = Astro.props;
+---
+
+<header class="hero">
+  <p class="hero__site-name">{siteName}</p>
+  <p class="hero__lead">{lead}</p>
+  <h1 class="hero__heading">
+    {headingLines.map((line, i) => (
+      <>
+        {line}
+        {i < headingLines.length - 1 && <br />}
+      </>
+    ))}
+  </h1>
+  <p class="hero__body">{body}</p>
+
+  <div class="hero__cta-block">
+    <a href="#contact" class="btn-primary">{ctaLabel}</a>
+    <p class="hero__reply-note">{replyNote}</p>
+  </div>
+
+  <ImagePlaceholder label={imageNote} height={230} />
+</header>
+
+<style>
+  .hero {
+    padding: 56px 28px 64px;
+    background: var(--color-base-bg);
+  }
+
+  .hero__site-name {
+    margin: 0 0 28px;
+    font-family: var(--font-label);
+    font-size: 15px;
+    letter-spacing: 0.22em;
+    color: var(--color-brand);
+  }
+
+  .hero__lead {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.9;
+    letter-spacing: 0.06em;
+    color: var(--color-text-sub);
+  }
+
+  .hero__heading {
+    margin: 0 0 24px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 31px;
+    line-height: 1.65;
+    letter-spacing: 0.02em;
+    text-wrap: pretty;
+  }
+
+  .hero__body {
+    margin: 0 0 36px;
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--color-text-body);
+    text-wrap: pretty;
+  }
+
+  .hero__cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .hero__reply-note {
+    margin: 0;
+    text-align: center;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-caption);
+  }
+</style>

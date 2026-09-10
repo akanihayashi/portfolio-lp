@@ -1,0 +1,196 @@
+:root {
+  /* Colors */
+  --color-outer-bg: #EFE9E1;
+  --color-base-bg: #FBF7F1;
+  --color-section-bg: #F3EDE4;
+  --color-brand: #A8613F;
+  --color-brand-hover: #8A4C2E;
+  --color-on-brand: #F4E4DA;
+  --color-text-strong: #3B3733;
+  --color-text-body: #5C5650;
+  --color-text-sub: #7A736B;
+  --color-text-caption: #8C857D;
+  --color-text-faint: #A39B92;
+  --color-input-border: #E3DACE;
+  --color-input-bg: #F9F5EF;
+
+  /* Placeholder stripes */
+  --placeholder-light-a: #E6DDD1;
+  --placeholder-light-b: #EFE7DB;
+  --placeholder-dark-a: #E4DACD;
+  --placeholder-dark-b: #EDE4D7;
+
+  /* Type */
+  --font-heading: 'Zen Maru Gothic', sans-serif;
+  --font-body: 'Zen Kaku Gothic New', sans-serif;
+  --font-label: 'Cormorant Garamond', serif;
+  --font-mono: ui-monospace, monospace;
+
+  /* Radius */
+  --radius-pill: 999px;
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --radius-xs: 6px;
+
+  /* Shadow */
+  --shadow-primary: 0 6px 18px rgba(168, 97, 63, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-outer-bg);
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  color: var(--color-text-strong);
+}
+
+a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-brand-hover);
+}
+
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: var(--color-outer-bg);
+}
+
+.column {
+  width: 100%;
+  max-width: 600px;
+  background: var(--color-base-bg);
+}
+
+/* Shared section label / heading */
+.section-label {
+  margin: 0 0 10px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  color: var(--color-brand);
+}
+
+.section-heading {
+  margin: 0 0 28px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1.7;
+}
+
+/* Buttons */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand);
+  color: var(--color-base-bg);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background: var(--color-brand-hover);
+  color: var(--color-base-bg);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-brand);
+  color: var(--color-brand);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+  background: var(--color-brand);
+  color: var(--color-base-bg);
+}
+
+.btn-inverse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-base-bg);
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-inverse:hover,
+.btn-inverse:active {
+  background: #FFFFFF;
+}
+
+/* Image placeholders */
+.placeholder {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: repeating-linear-gradient(135deg, var(--placeholder-light-a) 0 10px, var(--placeholder-light-b) 10px 20px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.placeholder--dark {
+  background: repeating-linear-gradient(135deg, var(--placeholder-dark-a) 0 10px, var(--placeholder-dark-b) 10px 20px);
+}
+
+.placeholder__label {
+  font-family: var(--font-mono);
+  color: var(--color-text-caption);
+  background: var(--color-base-bg);
+  border-radius: var(--radius-xs);
+}
